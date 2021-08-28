@@ -1,0 +1,15 @@
+.app-wrapper {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.flex-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.content-wrapper {
+  width: 960px;
+  position: relative;
+}

@@ -1,0 +1,29 @@
+.friendsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.friendsTitle {
+  text-align: center;
+  color: white;
+}
+
+.friendsItem {
+  margin: 5px 0;
+  width: 70px;
+}
+
+.friendsImg {
+  width: 70px;
+}
+
+.friendName {
+  max-width: 70px;
+  margin: 1px 2px;
+  text-align: center;
+  font-size: 14px;
+  color: aliceblue;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

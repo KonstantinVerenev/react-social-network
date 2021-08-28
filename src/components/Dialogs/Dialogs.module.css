@@ -1,0 +1,29 @@
+.dialogs {
+  display: flex;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: darkkhaki;
+}
+
+.dialogItems {
+  padding: 10px;
+  border-right: 1px solid black;
+}
+
+.messages {
+  padding: 10px;
+}
+
+.messageItem {
+  background-color: lightgrey;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.messageArea {
+  margin-left: 5px;
+}
+
+.messageAreaButton {
+  vertical-align: top;
+}

@@ -1,0 +1,10 @@
+.messages {
+  padding: 10px;
+  border-left: 1px solid black;
+}
+
+.messageItem {
+  background-color: lightgrey;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}

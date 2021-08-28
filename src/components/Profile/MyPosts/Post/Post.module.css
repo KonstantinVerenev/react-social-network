@@ -1,0 +1,12 @@
+.item {
+  display: flex;
+  align-items: center;
+  border: 2px solid darkgreen;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.postText {
+  display: block;
+  padding: 0 25px;
+}

@@ -1,0 +1,19 @@
+.navbar {
+  box-sizing: border-box;
+  width: 230px;
+  padding: 10px 10px 10px 10px;
+  background-color: tomato;
+}
+
+.item {
+  padding-bottom: 5px;
+}
+
+.item a{
+  text-decoration: none;
+  color: white;
+}
+
+.item a.active{
+  text-decoration: underline;
+}

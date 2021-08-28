@@ -1,0 +1,25 @@
+.users {
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: gold ;
+}
+
+.pagination {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+span {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.hide {
+  display: none;
+}
+
+.selectedPage {
+  font-weight: bold;
+  border-bottom: 1px solid black;
+}

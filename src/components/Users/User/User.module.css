@@ -1,0 +1,22 @@
+.user {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.user img{
+  display: block;
+  margin: 0 auto;
+}
+
+.user button{
+  display: block;
+  margin: 0 auto;
+}
+
+.avatarBox, .location {
+  width: 120px;
+}
