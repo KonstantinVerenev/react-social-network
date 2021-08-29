@@ -22,7 +22,14 @@ const Users = (props) => {
   // -----    -----
 
   const usersElement = props.users.map(user => {
-    return <User user={user} follow={props.follow} unfollow={props.unfollow} key={user.id} />
+    return <User
+      user={user}
+      follow={props.follow}
+      unfollow={props.unfollow}
+      key={user.id}
+      isFollowingProgress={props.isFollowingProgress}
+      setFollowingProgress={props.setFollowingProgress}
+    />
   })
 
   return (

@@ -11,21 +11,25 @@ const User = (props) => {
           <img src={props.user.photos.small == null ? '/img/post-avatar.png' : props.user.photos.small} alt="" />
         </NavLink>
         {props.user.followed ?
-          <button onClick={() => {
+          <button disabled={props.isFollowingProgress.some(id => id === props.user.id)} onClick={() => {
 
+            props.setFollowingProgress(true, props.user.id)
             userAPI.delete(props.user.id).then(data => {
               if (data.resultCode === 0) {
                 props.unfollow(props.user.id)
               }
+              props.setFollowingProgress(false, props.user.id)
             })
 
           }}>Unfollow</button>
-          : <button onClick={() => {
+          : <button disabled={props.isFollowingProgress.some(id => id === props.user.id)} onClick={() => {
 
+            props.setFollowingProgress(true, props.user.id)
             userAPI.post(props.user.id).then(data => {
               if (data.resultCode === 0) {
                 props.follow(props.user.id)
               }
+              props.setFollowingProgress(false, props.user.id)
             })
 
           }}>Follow</button>}
