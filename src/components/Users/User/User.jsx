@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import classes from './User.module.css'
-import { userAPI } from '../../../api/api'
 
 const User = (props) => {
   return (
@@ -13,24 +12,28 @@ const User = (props) => {
         {props.user.followed ?
           <button disabled={props.isFollowingProgress.some(id => id === props.user.id)} onClick={() => {
 
-            props.setFollowingProgress(true, props.user.id)
-            userAPI.delete(props.user.id).then(data => {
-              if (data.resultCode === 0) {
-                props.unfollow(props.user.id)
-              }
-              props.setFollowingProgress(false, props.user.id)
-            })
+            props.unfollow(props.user.id)
+
+            // props.setFollowingProgress(true, props.user.id)
+            // userAPI.unfollow(props.user.id).then(data => {
+            //   if (data.resultCode === 0) {
+            //     props.unfollow(props.user.id)
+            //   }
+            //   props.setFollowingProgress(false, props.user.id)
+            // })
 
           }}>Unfollow</button>
           : <button disabled={props.isFollowingProgress.some(id => id === props.user.id)} onClick={() => {
 
-            props.setFollowingProgress(true, props.user.id)
-            userAPI.post(props.user.id).then(data => {
-              if (data.resultCode === 0) {
-                props.follow(props.user.id)
-              }
-              props.setFollowingProgress(false, props.user.id)
-            })
+            props.follow(props.user.id)
+
+            // props.setFollowingProgress(true, props.user.id)
+            // userAPI.follow(props.user.id).then(data => {
+            //   if (data.resultCode === 0) {
+            //     props.follow(props.user.id)
+            //   }
+            //   props.setFollowingProgress(false, props.user.id)
+            // })
 
           }}>Follow</button>}
       </div>

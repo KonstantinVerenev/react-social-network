@@ -15,14 +15,20 @@ export const userAPI = {
         return response.data
       })
   },
-  delete(userId) {
+  unfollow(userId) {
     return instance.delete(`follow/${userId}`)
       .then(response => {
         return response.data
       })
   },
-  post(userId) {
+  follow(userId) {
     return instance.post(`follow/${userId}`)
+      .then(response => {
+        return response.data
+      })
+  },
+  getUserProfile(userId) {
+    return instance.get(`profile/${userId}`)
       .then(response => {
         return response.data
       })
@@ -32,15 +38,6 @@ export const userAPI = {
 export const authAPI = {
   isCurrentUserAuthorized() {
     return instance.get(`auth/me`)
-      .then(response => {
-        return response.data
-      })
-  }
-}
-
-export const profileAPI = {
-  getUserProfileInformation(userId) {
-    return instance.get(`profile/${userId}`)
       .then(response => {
         return response.data
       })

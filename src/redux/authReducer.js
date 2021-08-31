@@ -1,3 +1,5 @@
+import { authAPI } from "../api/api";
+
 const SET_USER_DATA = 'SET_USER_DATA';
 
 const initialState = {
@@ -25,6 +27,18 @@ export const setUserDataActionCreator = (userId, email, login) => {
   return {
     type: SET_USER_DATA,
     userData: { userId, email, login }
+  }
+}
+
+export const isCurrentUserAuthorizedThunkCreator = () => {
+  return (dispatch) => {
+    authAPI.isCurrentUserAuthorized()
+      .then(data => {
+        if (data.resultCode === 0) {
+          const { id, email, login } = data.data
+          dispatch(setUserDataActionCreator(id, email, login))
+        }
+      })
   }
 }
 

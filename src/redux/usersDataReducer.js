@@ -1,3 +1,5 @@
+import { userAPI } from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -71,14 +73,14 @@ const usersDataReducer = (state = initialState, action) => {
   }
 }
 
-export const followActionCreator = (userId) => {
+export const followSuccessActionCreator = (userId) => {
   return {
     type: FOLLOW,
     userId: userId
   }
 }
 
-export const unfollowActionCreator = (userId) => {
+export const unfollowSuccessActionCreator = (userId) => {
   return {
     type: UNFOLLOW,
     userId: userId
@@ -120,5 +122,47 @@ export const setFollowingProgressActionCreator = (isFollowingProgress, userId) =
     userId: userId
   }
 }
+
+//  ----  ThunkCreator  ----
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+  //  ----  Thunk  ----
+  return (dispatch) => {
+    dispatch(setIsFetchingActionCreator(true))
+    userAPI.getUsers(currentPage, pageSize).then(data => {
+      dispatch(setIsFetchingActionCreator(false))
+      dispatch(setUsersActionCreator(data.items))
+      dispatch(setTotalUsersCountActionCreator(data.totalCount))
+    })
+  }
+  //  ----  ----  ----
+}
+//  ----  ----  ----
+
+
+export const followThunkCreator = (userId) => {
+  return (dispatch) => {
+    dispatch(setFollowingProgressActionCreator(true, userId))
+    userAPI.follow(userId).then(data => {
+      if (data.resultCode === 0) {
+        dispatch(followSuccessActionCreator(userId))
+      }
+      dispatch(setFollowingProgressActionCreator(false, userId))
+    })
+  }
+}
+
+export const unfollowThunkCreator = (userId) => {
+  return (dispatch) => {
+    dispatch(setFollowingProgressActionCreator(true, userId))
+    userAPI.unfollow(userId).then(data => {
+      if (data.resultCode === 0) {
+        dispatch(unfollowSuccessActionCreator(userId))
+      }
+      dispatch(setFollowingProgressActionCreator(false, userId))
+    })
+  }
+}
+
+
 
 export default usersDataReducer;
