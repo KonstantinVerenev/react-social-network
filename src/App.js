@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
+import Login from "./components/Login/Login";
 import HeaderContainer from './components/Header/HeaderContainer'
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import NavbarContainer from './components/Navbar/NavbarContainer'
@@ -17,6 +18,7 @@ function App() {
         <div className="flex-wrapper">
           <NavbarContainer />
           <div className='content-wrapper'>
+            <Route path='/login' render={() => <Login />} />
             <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
             <Route path='/dialogs/' render={() => <DialogsContainer />} />
             <Route path='/users/' render={() => <UsersContainer />} />
