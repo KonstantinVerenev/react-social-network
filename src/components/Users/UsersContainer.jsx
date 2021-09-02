@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import {
-  unfollowThunkCreator as unfollow,
-  followThunkCreator as follow,
   setCurrentPageActionCreator as setCurrentPage,
-  getUsersThunkCreator as getUsers
+  getUsersThunkCreator as getUsers,
+  unfollowThunkCreator as unfollow,
+  followThunkCreator as follow
 } from '../../redux/usersDataReducer';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
@@ -51,6 +51,8 @@ const mapStateToProps = (state) => {
   }
 }
 
+export default connect(mapStateToProps, { setCurrentPage, getUsers, follow, unfollow })(UsersContainer);
+
 //  ------  диспатч заменили коротким обьектом в коннекте  ------
 // const mapDispatchToProps = (dispatch) => {
 //   return {
@@ -76,7 +78,6 @@ const mapStateToProps = (state) => {
 // }
 //  ------    ------
 
-export default connect(mapStateToProps, { setCurrentPage, getUsers, follow, unfollow })(UsersContainer);
 
 //  ------  для запросов делали дополнительную обёртку  ------
 
