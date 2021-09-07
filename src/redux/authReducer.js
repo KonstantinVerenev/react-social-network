@@ -7,7 +7,6 @@ const initialState = {
   email: null,
   login: null,
   isAuth: false
-  // isFetching: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -15,18 +14,17 @@ const authReducer = (state = initialState, action) => {
     case SET_USER_DATA:
       return {
         ...state,
-        ...action.userData,
-        isAuth: true
+        ...action.payload
       }
     default:
       return state;
   }
 }
 
-export const setUserDataActionCreator = (userId, email, login) => {
+export const setUserDataActionCreator = (userId, email, login, isAuth) => {
   return {
     type: SET_USER_DATA,
-    userData: { userId, email, login }
+    payload: { userId, email, login, isAuth }
   }
 }
 
@@ -36,7 +34,29 @@ export const isCurrentUserAuthorizedThunkCreator = () => {
       .then(data => {
         if (data.resultCode === 0) {
           const { id, email, login } = data.data
-          dispatch(setUserDataActionCreator(id, email, login))
+          dispatch(setUserDataActionCreator(id, email, login, true))
+        }
+      })
+  }
+}
+
+export const loginThunkCreator = (email, password, rememberMe) => {
+  return (dispatch) => {
+    authAPI.login(email, password, rememberMe)
+      .then(data => {
+        if (data.resultCode === 0) {
+          dispatch(isCurrentUserAuthorizedThunkCreator())
+        }
+      })
+  }
+}
+
+export const logoutThunkCreator = () => {
+  return (dispatch) => {
+    authAPI.logout()
+      .then(data => {
+        if (data.resultCode === 0) {
+          dispatch(setUserDataActionCreator(null, null, null, false))
         }
       })
   }
