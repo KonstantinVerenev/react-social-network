@@ -21,6 +21,10 @@ const LoginForm = (props) => {
       <div>
         <Field component={'input'} name={'rememberMe'} type={'checkbox'} /> remember me
       </div>
+      {props.error ?
+        <div className={classes.errorBlock}>
+          <p>{props.error}</p>
+        </div> : null}
       <div>
         <button>LOGIN</button>
       </div>
@@ -57,3 +61,4 @@ const LoginContainer = connect(mapStateToProps, { login })(Login)
 
 export default LoginContainer
 
+// bM9@9cL277eRnyw

@@ -12,13 +12,13 @@ const withAuthRedirect = (Component) => {
     }
   }
 
-  const mapStateToPropsForRedirect = (state) => {
+  const mapStateToProps = (state) => {
     return {
       isAuth: state.authData.isAuth
     }
   }
 
-  const ConnectedAuthRedirectComponent = connect(mapStateToPropsForRedirect)(RedirectComponent)
+  const ConnectedAuthRedirectComponent = connect(mapStateToProps)(RedirectComponent)
 
   return ConnectedAuthRedirectComponent
 }

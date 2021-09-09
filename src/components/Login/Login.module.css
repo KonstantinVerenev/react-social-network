@@ -3,3 +3,8 @@
   padding: 10px;
   background-color: rgb(82, 243, 195) ;
 }
+
+.errorBlock p {
+  color: red;
+  font-weight: bold;
+}

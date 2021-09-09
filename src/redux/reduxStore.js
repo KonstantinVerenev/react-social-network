@@ -3,6 +3,7 @@ import sidebarDataReducer from './sidebarDataReducer'
 import profileDataReducer from './profileDataReducer'
 import dialogsDataReducer from './dialogsDataReducer'
 import usersDataReducer from './usersDataReducer'
+import appDataReducer from "./appReducer";
 import authReducer from './authReducer'
 import thunkMiddleware from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
@@ -13,6 +14,7 @@ let reducers = combineReducers({
   dialogsData: dialogsDataReducer,
   usersData: usersDataReducer,
   authData: authReducer,
+  appData: appDataReducer,
   form: formReducer
 });
 

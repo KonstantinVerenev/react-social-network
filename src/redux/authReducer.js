@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -30,7 +31,7 @@ export const setUserDataActionCreator = (userId, email, login, isAuth) => {
 
 export const isCurrentUserAuthorizedThunkCreator = () => {
   return (dispatch) => {
-    authAPI.isCurrentUserAuthorized()
+    return authAPI.isCurrentUserAuthorized()
       .then(data => {
         if (data.resultCode === 0) {
           const { id, email, login } = data.data
@@ -46,6 +47,10 @@ export const loginThunkCreator = (email, password, rememberMe) => {
       .then(data => {
         if (data.resultCode === 0) {
           dispatch(isCurrentUserAuthorizedThunkCreator())
+        } else {
+          console.log(data.messages.length > 0)
+          const errorMessage = (data.messages.length > 0) ? data.messages[0] : 'Some error'
+          dispatch(stopSubmit('loginForm', { _error: errorMessage }))
         }
       })
   }

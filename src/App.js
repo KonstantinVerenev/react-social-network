@@ -9,28 +9,48 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
+import { connect } from "react-redux";
 
-function App() {
-  return (
-    <Router>
-      <div className='app-wrapper'>
-        <HeaderContainer />
-        <div className="flex-wrapper">
-          <NavbarContainer />
-          <div className='content-wrapper'>
-            <Route path='/login' render={() => <Login />} />
-            <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
-            <Route path='/dialogs/' render={() => <DialogsContainer />} />
-            <Route path='/users/' render={() => <UsersContainer />} />
-            <Route path='/news/' component={News} />
-            <Route path='/settings/' component={Settings} />
+import { initializeAppThunkCreator as initializeApp } from "./redux/appReducer";
+import Preloader from "./components/common/Preloader/Preloader";
+
+class App extends React.Component {
+  componentDidMount() {
+    this.props.initializeApp()
+  }
+
+  render() {
+    if (!this.props.initialized) {
+      return <Preloader />
+    }
+
+    return (
+      <Router>
+        <div className='app-wrapper'>
+          <HeaderContainer />
+          <div className="flex-wrapper">
+            <NavbarContainer />
+            <div className='content-wrapper'>
+              <Route path='/login' render={() => <Login />} />
+              <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
+              <Route path='/dialogs/' render={() => <DialogsContainer />} />
+              <Route path='/users/' render={() => <UsersContainer />} />
+              <Route path='/news/' component={News} />
+              <Route path='/settings/' component={Settings} />
+            </div>
           </div>
         </div>
-      </div>
-    </Router>
-  );
+      </Router >
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    initialized: state.appData.initialized
+  }
+}
+
+export default connect(mapStateToProps, { initializeApp })(App);
 
 // dialogData
