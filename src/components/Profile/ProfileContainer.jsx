@@ -6,7 +6,7 @@ import {
   getUserStatusThunkCreator as getUserStatus,
   updateUserStatusThunkCreator as updateUserStatus
 } from '../../redux/profileDataReducer'
-import { Redirect, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 // import withAuthRedirect from '../hoc/withAuthRedirect'
 import { compose } from 'redux'
 
