@@ -6,7 +6,7 @@ export const getUsersSelector = (state) => {
 
 //  -----  fake difficult logic to use Resector lib  -----
 export const getUsersReselector = createSelector(getUsersSelector, (users) => {
-  users.filter(user => true)
+  return users.filter(user => true)
 })
 
 export const getPageSizeSelector = (state) => {

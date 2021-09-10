@@ -15,7 +15,6 @@ import {
   getPageSizeSelector,
   getTotalUsersCountSelector,
   getUsersReselector,
-  getUsersSelector
 } from '../../redux/usersSelectors';
 
 
