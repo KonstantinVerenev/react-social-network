@@ -1,8 +1,10 @@
 import { profileAPI } from "../api/api";
 
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
+const ADD_POST = 'social-network/profileDataReducer/ADD-POST';
+const RESET_USER_PROFILE = 'social-network/profileDataReducer/RESET_USER_PROFILE';
+const SET_USER_PROFILE = 'social-network/profileDataReducer/SET_USER_PROFILE';
+const SET_STATUS = 'social-network/profileDataReducer/SET_STATUS';
+const SAVE_PHOTO_SUCCESS = 'social-network/profileDataReducer/SAVE_PHOTO_SUCCESS';
 
 const initialState = {
   posts: [
@@ -21,6 +23,11 @@ const profileDataReducer = (state = initialState, action) => {
         ...state,
         posts: [...state.posts, newPost]
       };
+    case RESET_USER_PROFILE:
+      return {
+        ...state,
+        profile: null
+      };
     case SET_USER_PROFILE:
       return {
         ...state,
@@ -31,6 +38,11 @@ const profileDataReducer = (state = initialState, action) => {
         ...state,
         status: action.status
       };
+    case SAVE_PHOTO_SUCCESS:
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.photos }
+      };
     default:
       return state;
   }
@@ -40,6 +52,12 @@ export const addPostActionCreator = (postText) => {
   return {
     type: ADD_POST,
     postText
+  }
+}
+
+export const resetUserProfileActionCreator = () => {
+  return {
+    type: RESET_USER_PROFILE,
   }
 }
 
@@ -57,32 +75,45 @@ export const setUserStatusActionCreator = (status) => {
   }
 }
 
+export const savePhotoSuccessActionCreator = (photos) => {
+  return {
+    type: SAVE_PHOTO_SUCCESS,
+    photos: photos
+  }
+}
+
 export const getUserProfileThunkCreator = (userId) => {
-  return (dispatch) => {
-    profileAPI.getUserProfile(userId)
-      .then(data => {
-        dispatch(setUserProfileActionCreator(data))
-      })
+  return async (dispatch) => {
+    dispatch(resetUserProfileActionCreator())
+    const response = await profileAPI.getUserProfile(userId)
+    dispatch(setUserProfileActionCreator(response))
   }
 }
 
 export const getUserStatusThunkCreator = (userId) => {
-  return (dispatch) => {
-    profileAPI.getUserStatus(userId)
-      .then(data => {
-        dispatch(setUserStatusActionCreator(data))
-      })
+  return async (dispatch) => {
+    const response = await profileAPI.getUserStatus(userId)
+    dispatch(setUserStatusActionCreator(response))
   }
 }
 
 export const updateUserStatusThunkCreator = (status) => {
-  return (dispatch) => {
-    profileAPI.updateUserStatus(status)
-      .then(response => {
-        if (response.data.resultCode === 0) {
-          dispatch(setUserStatusActionCreator(status))
-        }
-      })
+  return async (dispatch) => {
+    const response = await profileAPI.updateUserStatus(status)
+
+    if (response.data.resultCode === 0) {
+      dispatch(setUserStatusActionCreator(status))
+    }
+  }
+}
+
+export const savePhotoThunkCreator = (file) => {
+  return async (dispatch) => {
+    const response = await profileAPI.savePhoto(file)
+
+    if (response.data.resultCode === 0) {
+      dispatch(savePhotoSuccessActionCreator(response.data.data.photos))
+    }
   }
 }
 

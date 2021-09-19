@@ -1,23 +1,10 @@
 import React from 'react'
 import classes from './Users.module.css'
 import User from './User/User'
+import Pagination from '../common/Pagination/Pagination'
 
 
 const Users = (props) => {
-  const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-
-  // ----- light pagination -----
-  const pagination =
-    <div className={classes.pagination}>
-      <span onClick={() => { props.onPageChanged(1) }}>first</span>
-      <span onClick={() => { props.onPageChanged(props.currentPage - 2) }} className={props.currentPage < 3 ? classes.hide : ''}>{props.currentPage - 2}</span>
-      <span onClick={() => { props.onPageChanged(props.currentPage - 1) }} className={props.currentPage < 2 ? classes.hide : ''}>{props.currentPage - 1}</span>
-      <span className={classes.selectedPage}>{props.currentPage}</span>
-      <span onClick={() => { props.onPageChanged(props.currentPage + 1) }} className={props.currentPage > (pagesCount - 1) ? classes.hide : ''}>{props.currentPage + 1}</span>
-      <span onClick={() => { props.onPageChanged(props.currentPage + 2) }} className={props.currentPage > (pagesCount - 2) ? classes.hide : ''}>{props.currentPage + 2}</span>
-      <span onClick={() => { props.onPageChanged(pagesCount) }}>last</span>
-    </div>
-  // -----    -----
 
   const usersElement = props.users.map(user => {
     return <User
@@ -32,7 +19,12 @@ const Users = (props) => {
 
   return (
     <>
-      {pagination}
+      <Pagination
+        totalItemsCount={props.totalUsersCount}
+        pageSize={props.pageSize}
+        onPageChanged={props.onPageChanged}
+        currentPage={props.currentPage}
+      />
 
       <div className={classes.users}>
         <div>

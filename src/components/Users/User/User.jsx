@@ -47,10 +47,10 @@ const User = (props) => {
       </div>
       <div className={classes.location}>
         <div>
-          {'props.user.location.city'}
+          {'Адрес'}
         </div>
         <div>
-          {'props.user.location.country'}
+          {'Информация'}
         </div>
       </div>
     </div >

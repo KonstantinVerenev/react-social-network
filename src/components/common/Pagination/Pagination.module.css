@@ -1,0 +1,23 @@
+.pagination {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.selectedPage {
+  font-weight: bold;
+  border-bottom: 1px solid black;
+}
+
+.unavailable{
+  color: lightgrey;
+  pointer-events: none;
+  touch-action: none
+}
+
+button {
+margin: 5px;
+}

@@ -4,15 +4,15 @@ import { connect } from 'react-redux'
 import {
   getUserProfileThunkCreator as getUserProfile,
   getUserStatusThunkCreator as getUserStatus,
-  updateUserStatusThunkCreator as updateUserStatus
+  updateUserStatusThunkCreator as updateUserStatus,
+  savePhotoThunkCreator as savePhoto
 } from '../../redux/profileDataReducer'
 import { withRouter } from 'react-router-dom'
-// import withAuthRedirect from '../hoc/withAuthRedirect'
 import { compose } from 'redux'
 
 class ProfileContainer extends React.Component {
 
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.match.params.userId
     if (!userId) {
       userId = this.props.autorizedUserId
@@ -25,8 +25,18 @@ class ProfileContainer extends React.Component {
     this.props.getUserStatus(userId)
   }
 
+  componentDidMount() {
+    this.refreshProfile()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.userId !== this.props.match.params.userId) {
+      this.refreshProfile()
+    }
+  }
+
   render() {
-    return <Profile {...this.props} />
+    return <Profile {...this.props} isOwner={!this.props.match.params.userId} />
   }
 }
 
@@ -40,9 +50,8 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(
-  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus }),
-  withRouter,
-  // withAuthRedirect
+  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto }),
+  withRouter
 )(ProfileContainer);
 
 //  ------  old one without compose  ------

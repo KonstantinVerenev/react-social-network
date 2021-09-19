@@ -2,7 +2,7 @@ import {
   isCurrentUserAuthorizedThunkCreator as isCurrentUserAuthorized,
 } from './authReducer'
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
+const INITIALIZED_SUCCESS = 'social-network/appReducer/INITIALIZED_SUCCESS';
 
 const initialState = {
   initialized: false
@@ -27,12 +27,20 @@ export const initializedActionCreator = () => {
 }
 
 export const initializeAppThunkCreator = () => {
-  return (dispatch) => {
-    const promise = dispatch(isCurrentUserAuthorized())
-    promise.then(() => {
-      dispatch(initializedActionCreator())
-    })
+  return async (dispatch) => {
+    await dispatch(isCurrentUserAuthorized())
+    dispatch(initializedActionCreator())
   }
 }
+
+// export const initializeAppThunkCreator = () => {
+//   return (dispatch) => {
+//     const promise = dispatch(isCurrentUserAuthorized())
+
+//     promise.then(() => {
+//       dispatch(initializedActionCreator())
+//     })
+//   }
+// }
 
 export default appDataReducer;

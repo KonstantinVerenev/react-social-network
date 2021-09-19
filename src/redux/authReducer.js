@@ -1,7 +1,7 @@
 import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
-const SET_USER_DATA = 'SET_USER_DATA';
+const SET_USER_DATA = 'social-network/authReducer/SET_USER_DATA';
 
 const initialState = {
   userId: null,
@@ -30,40 +30,37 @@ export const setUserDataActionCreator = (userId, email, login, isAuth) => {
 }
 
 export const isCurrentUserAuthorizedThunkCreator = () => {
-  return (dispatch) => {
-    return authAPI.isCurrentUserAuthorized()
-      .then(data => {
-        if (data.resultCode === 0) {
-          const { id, email, login } = data.data
-          dispatch(setUserDataActionCreator(id, email, login, true))
-        }
-      })
+  return async (dispatch) => {
+    const responce = await authAPI.isCurrentUserAuthorized()
+
+    if (responce.resultCode === 0) {
+      const { id, email, login } = responce.data
+      dispatch(setUserDataActionCreator(id, email, login, true))
+    }
   }
 }
 
+
 export const loginThunkCreator = (email, password, rememberMe) => {
-  return (dispatch) => {
-    authAPI.login(email, password, rememberMe)
-      .then(data => {
-        if (data.resultCode === 0) {
-          dispatch(isCurrentUserAuthorizedThunkCreator())
-        } else {
-          console.log(data.messages.length > 0)
-          const errorMessage = (data.messages.length > 0) ? data.messages[0] : 'Some error'
-          dispatch(stopSubmit('loginForm', { _error: errorMessage }))
-        }
-      })
+  return async (dispatch) => {
+    const response = await authAPI.login(email, password, rememberMe)
+
+    if (response.resultCode === 0) {
+      dispatch(isCurrentUserAuthorizedThunkCreator())
+    } else {
+      const errorMessage = (response.messages.length > 0) ? response.messages[0] : 'Some error'
+      dispatch(stopSubmit('loginForm', { _error: errorMessage }))
+    }
   }
 }
 
 export const logoutThunkCreator = () => {
-  return (dispatch) => {
-    authAPI.logout()
-      .then(data => {
-        if (data.resultCode === 0) {
-          dispatch(setUserDataActionCreator(null, null, null, false))
-        }
-      })
+  return async (dispatch) => {
+    const response = await authAPI.logout()
+
+    if (response.resultCode === 0) {
+      dispatch(setUserDataActionCreator(null, null, null, false))
+    }
   }
 }
 
