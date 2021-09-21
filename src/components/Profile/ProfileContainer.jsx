@@ -5,7 +5,8 @@ import {
   getUserProfileThunkCreator as getUserProfile,
   getUserStatusThunkCreator as getUserStatus,
   updateUserStatusThunkCreator as updateUserStatus,
-  savePhotoThunkCreator as savePhoto
+  savePhotoThunkCreator as savePhoto,
+  saveProfileThunkCreator as saveProfile
 } from '../../redux/profileDataReducer'
 import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'
@@ -50,7 +51,7 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(
-  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto }),
+  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile }),
   withRouter
 )(ProfileContainer);
 

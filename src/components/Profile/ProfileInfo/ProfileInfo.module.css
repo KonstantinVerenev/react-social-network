@@ -4,5 +4,13 @@
 }
 
 .chooseFileBlock{
-  margin: 10px;
+  margin: 10px 0;
+}
+
+.profileInfoHeader {
+  display: flex;
+}
+
+h4 {
+  margin-left: 10px;
 }

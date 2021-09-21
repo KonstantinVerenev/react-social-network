@@ -31,11 +31,11 @@ const Dialogs = (props) => {
   const state = props.dialogsData
 
   const dialogElements = state.dialogs.map(element => {
-    return <DialogItem name={element.name} id={element.id} />
+    return <DialogItem key={element.id} name={element.name} id={element.id} />
   })
 
   const messageElements = state.messages.map(element => {
-    return <Message messageText={element.messageText} />
+    return <Message key={element.id} messageText={element.messageText} />
   })
 
   const onSubmit = (formData) => {

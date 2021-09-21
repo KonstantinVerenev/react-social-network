@@ -6,7 +6,7 @@ const formControlCreator = (Element) => {
   return ({ input, meta, ...restProps }) => {
     const showError = meta.touched && meta.error
     return (
-      <div className={showError && classes.error}>
+      <div className={showError ? classes.error : null}>
         <Element {...input} {...restProps} />
         {showError && <span>{meta.error}</span>}
       </div >

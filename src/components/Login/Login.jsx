@@ -47,6 +47,7 @@ const Login = (props) => {
       <h3>Вы не залогинены</h3>
       <h2>LOGIN</h2>
       <ReactLoginForm onSubmit={onSubmit} />
+      bM9@9cL277eRnyw
     </div>
   )
 }

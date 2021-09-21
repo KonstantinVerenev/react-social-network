@@ -1,0 +1,24 @@
+h2 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.floatField {
+  margin-left: 10px;
+  width: 350px;
+  display: block;
+}
+
+input.floatField {
+  height: 20px;
+}
+
+textarea.floatField {
+  height: 60px;
+}
+
+.errorBlock p {
+  color: red;
+  font-weight: bold;
+}

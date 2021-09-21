@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { profileAPI } from "../api/api";
 
 const ADD_POST = 'social-network/profileDataReducer/ADD-POST';
@@ -113,6 +114,20 @@ export const savePhotoThunkCreator = (file) => {
 
     if (response.data.resultCode === 0) {
       dispatch(savePhotoSuccessActionCreator(response.data.data.photos))
+    }
+  }
+}
+
+export const saveProfileThunkCreator = (profileData) => {
+  return async (dispatch, getState) => {
+    const userId = getState().authData.userId
+    const response = await profileAPI.saveProfile(profileData)
+
+    if (response.data.resultCode === 0) {
+      dispatch(getUserProfileThunkCreator(userId))
+    } else {
+      dispatch(stopSubmit('profileDataForm', { _error: response.data.messages[0] }))
+      return Promise.reject(response.data.messages[0])
     }
   }
 }
